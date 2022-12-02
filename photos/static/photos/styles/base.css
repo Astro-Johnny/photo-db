@@ -6,7 +6,7 @@ body {
 
 .sidenav {
     height: 100%;
-    width: 200px;
+    width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -35,7 +35,7 @@ body {
 }
 
 .main {
-    margin-right: 200px;
+    margin-right: 220px;
     font-size: 18px;
     padding: 0px 10px;
 }

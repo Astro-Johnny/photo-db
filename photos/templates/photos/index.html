@@ -23,28 +23,35 @@
         <a href="#">by date taken</a>
         <a href="#">by camera</a>
     </div>
+
+
     <button class="dropdown-btn">Camera
         <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-container">
-        <a href="#">olympus mju-ii</a>
-        <a href="#">olympus E620</a>
+        {% for x in cameras %}
+            <a href="#"><span>{{x.id}} </span>{{x.model}}</a>
+        {% endfor %}
     </div>
+
+
     <button class="dropdown-btn">Film
         <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-container">
-        <a href="#">Kodak Gold</a>
-        <a href="#">Kodak colorplus</a>
-        <a href="#">fujifilm</a>
+        {% for x in film %}
+            <a href="#"><span>{{x.id}} </span>{{x.name}}</a>
+        {% endfor %}
     </div>
+
+
     <button class="dropdown-btn">Event
         <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-container">
-        <a href="#">Sam's birthday</a>
-        <a href="#">Annie and Piper graduate</a>
-        <a href="#">Jāņi</a>
+        {% for x in event %}
+            <a href="#"><span>{{x.id}} </span>{{x.name}}</a>
+        {% endfor %}
     </div>
 </div>
 
