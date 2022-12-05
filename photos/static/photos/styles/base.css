@@ -1,7 +1,14 @@
 body {
     background-color: #121212;
     font-family: "Lato", sans-serif;
+    text-decoration: none;
     color: #818181;
+}
+
+.main {
+    margin-right: 220px;
+    font-size: 18px;
+    padding: 0px 10px;
 }
 
 .sidenav {
@@ -34,14 +41,14 @@ body {
     color: #f1f1f1;
 }
 
-.main {
-    margin-right: 220px;
-    font-size: 18px;
-    padding: 0px 10px;
+.uploadbtn{
+    position: absolute;
+    display: inline-block;
+    bottom: 30;
 }
 
 .active {
-  background-color: green;
+  background-color: #a329d6;
   color: white;
 }
 
@@ -49,4 +56,9 @@ body {
   display: none;
   background-color: #262626;
   padding-left: 8px;
+}
+
+.img {
+	width: auto;
+	height: 20%;
 }

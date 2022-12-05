@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'photos/styles/base.css' %}">
     <script defer src="{% static 'photos/scripts/script.js' %}"></script>
-    <title>Document</title>
+    <title>Photo gallery</title>
 </head>
 <body>
 
@@ -53,8 +53,15 @@
             <a href="#"><span>{{x.id}} </span>{{x.name}}</a>
         {% endfor %}
     </div>
+
+
+    <a class="uploadbtn" href="#">Upload</a>
 </div>
 
-<div class="main">these my photos</div>
+<div class="main">
+        {% for x in photos %}
+            <img class="img" src="{% static 'photos/pictures/' %}{{ x.fileName }}">
+        {% endfor %}
+</div>
 </body>
 </html>
