@@ -33,7 +33,8 @@
         </button>
         <div class="dropdown-container">
             {% for x in cameras %}
-                <a onclick=""><input type='checkbox'>{{x.model}}</a>
+                <input type="checkbox" class="checker">
+                <a onClick="submitForm()">{{x.model}}</a>
             {% endfor %}
         </div>
 

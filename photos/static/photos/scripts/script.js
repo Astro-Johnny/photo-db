@@ -1,9 +1,9 @@
-var dropdown = document.getElementsByClassName("dropdown-btn");
+const dropdowns = document.getElementsByClassName("dropdown-btn");
 
-for (var i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function() {
+for (let i = 0; i < dropdowns.length; i++) {
+    dropdowns[i].addEventListener("click", function() {
         this.classList.toggle("active");
-        var dropdownContent = this.nextElementSibling;
+        const dropdownContent = this.nextElementSibling;
         if (dropdownContent.style.display === "block") {
             dropdownContent.style.display = "none";
         } else {
@@ -11,19 +11,8 @@ for (var i = 0; i < dropdown.length; i++) {
         }
     });
 }
-
-$("#cb").click(function(e) {
-  e.preventDefault();
-  $('#mode').click(function(e) {
-    e.stopPropagation();
-  })
-  $("#mode").prop("checked", !$("#mode").prop("checked"));
-})
-
-let allLinks = document.querySelectorAll("a");
-console.log(allLinks)
-console.log(1)
+// let allLinks = document.querySelectorAll("a");
 
 function submitForm(){
-    //document.getElementsById("myForm").submit()
+    document.getElementById("myForm").submit()
 }
