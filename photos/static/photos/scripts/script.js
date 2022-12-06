@@ -13,6 +13,8 @@ for (let i = 0; i < dropdowns.length; i++) {
 }
 // let allLinks = document.querySelectorAll("a");
 
-function submitForm(){
-    document.getElementById("myForm").submit()
+function submitForm(identity){
+    const el = document.getElementById(identity)
+    el.checked = true
+    document.getElementById("myForm").submit();
 }

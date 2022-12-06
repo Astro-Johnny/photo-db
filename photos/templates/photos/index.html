@@ -14,8 +14,7 @@
 <body>
 
 <div class="sidenav">
-    <form action="{% url 'options' %}" method="post" id="myForm">
-        {% csrf_token %}
+    <form action="{% url 'options' %}" method="get" id="myForm">
         <button type="button" class="dropdown-btn">Sort by
             <i class="fa fa-caret-down"></i>
         </button>
@@ -33,8 +32,9 @@
         </button>
         <div class="dropdown-container">
             {% for x in cameras %}
-                <input type="checkbox" class="checker">
-                <a onClick="submitForm()">{{x.model}}</a>
+                <input id="camera_{{ x.id }}" name="camera" type="checkbox" value="{{ x.id }}"/>
+                <label for="camera" onClick="submitForm('camera_'+{{ x.id }})">{{x.model}}</label>
+                <br />
             {% endfor %}
         </div>
 
