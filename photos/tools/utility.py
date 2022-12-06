@@ -15,3 +15,27 @@ def getTableData(tableName):
         result = namedtuplefetchall(cursor, f"{tableName}")
     con.close()
     return result
+
+def cameraId(tableName, id=None):
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM {tableName} WHERE camera_id={id}")
+        result = namedtuplefetchall(cursor, f"{tableName}")
+    con.close()
+    return result
+
+def filmId(tableName, id=None):
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM {tableName} WHERE film_id={id}")
+        result = namedtuplefetchall(cursor, f"{tableName}")
+    con.close()
+    return result
+
+def eventId(tableName, id=None):
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM {tableName} WHERE event_id={id}")
+        result = namedtuplefetchall(cursor, f"{tableName}")
+    con.close()
+    return result

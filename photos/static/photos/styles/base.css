@@ -3,6 +3,7 @@ body {
     font-family: "Lato", sans-serif;
     text-decoration: none;
     color: #818181;
+    margin:25px;
 }
 
 .main {
@@ -41,10 +42,10 @@ body {
     color: #f1f1f1;
 }
 
-.uploadbtn{
-    position: absolute;
+.upload-btn{
+    position: relative;
     display: inline-block;
-    bottom: 30;
+    bottom: 100%;
 }
 
 .active {
@@ -60,5 +61,16 @@ body {
 
 .img {
 	width: auto;
-	height: 20%;
+	height: 30%;
+}
+
+.polaroid {
+    width: 80%;
+    background-color: #161616;
+    margin-bottom: 25px;
+}
+
+.container {
+    text-align: center;
+    padding: 10px 20px;
 }

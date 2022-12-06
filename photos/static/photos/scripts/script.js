@@ -11,3 +11,11 @@ for (var i = 0; i < dropdown.length; i++) {
         }
     });
 }
+
+let allLinks = document.querySelectorAll("a");
+console.log(allLinks)
+console.log(1)
+
+function submitForm(){
+    //document.getElementsById("myForm").submit()
+}
