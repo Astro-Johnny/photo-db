@@ -12,6 +12,14 @@ for (var i = 0; i < dropdown.length; i++) {
     });
 }
 
+$("#cb").click(function(e) {
+  e.preventDefault();
+  $('#mode').click(function(e) {
+    e.stopPropagation();
+  })
+  $("#mode").prop("checked", !$("#mode").prop("checked"));
+})
+
 let allLinks = document.querySelectorAll("a");
 console.log(allLinks)
 console.log(1)

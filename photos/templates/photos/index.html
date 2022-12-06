@@ -33,7 +33,7 @@
         </button>
         <div class="dropdown-container">
             {% for x in cameras %}
-                <a onclick="" >{{x.model}}</a>
+                <a onclick=""><input type='checkbox'>{{x.model}}</a>
             {% endfor %}
         </div>
 
@@ -43,7 +43,7 @@
         </button>
         <div class="dropdown-container">
             {% for x in film %}
-                <a href="{% url 'film' x.id %}">{{x.name}}</a>
+                <a href="{% url 'film' x.id %}"><input type='checkbox'>{{x.name}}</a>
             {% endfor %}
         </div>
 
@@ -53,7 +53,7 @@
         </button>
         <div class="dropdown-container">
             {% for x in event %}
-                <a href="{% url 'events' x.id %}">{{x.name}}</a>
+                <a href="{% url 'events' x.id %}"><input type='checkbox' class="checkbox">{{x.name}}</a>
             {% endfor %}
         </div>
 
@@ -64,7 +64,12 @@
 
 <div class="main">
         {% for x in photos %}
-            <img class="img" src="{% static 'photos/pictures/' %}{{ x.fileName }}">
+            <div class="responsive">
+                <div class="gallery">
+                    <img src="{% static 'photos/pictures/' %}{{ x.fileName }}">
+                    <div class="desc">{{x.fileName}}</div>
+                </div>
+            </div>
         {% endfor %}
 </div>
 </body>
