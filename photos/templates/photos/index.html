@@ -7,7 +7,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'photos/styles/base.css' %}">
-    <script defer src="{% static 'photos/scripts/script.js' %}">
+    <script defer src="{% static 'photos/scripts/my-script.js' %}">
     </script>
     <title>Photo gallery</title>
 </head>
@@ -20,7 +20,6 @@
         </button>
         <div class="dropdown-container">
             <a href="#">a to z</a>
-            <a href="#">z to a</a>
             <a href="#">by film</a>
             <a href="#">by date taken</a>
             <a href="#">by camera</a>
@@ -32,9 +31,10 @@
         </button>
         <div class="dropdown-container">
             {% for x in cameras %}
-                <input id="camera_{{ x.id }}" name="camera" type="checkbox" value="{{ x.id }}"/>
-                <label for="camera" onClick="submitForm('camera_'+{{ x.id }})">{{x.model}}</label>
-                <br />
+                <div onClick="submitForm('camera_'+{{ x.id }})">
+                    <input id="camera_{{ x.id }}" name="camera_{{ x.id }}" type="checkbox" value="enabled"/>
+                    <label class="label" for="camera_{{ x.id }}">{{x.model}}</label>
+                </div>
             {% endfor %}
         </div>
 
@@ -44,7 +44,10 @@
         </button>
         <div class="dropdown-container">
             {% for x in film %}
-                <a href="{% url 'film' x.id %}"><input type='checkbox'>{{x.name}}</a>
+                <div onClick="submitForm('film_'+{{ x.id }})">
+                    <input id="film_{{ x.id }}" name="film_{{ x.id }}" type="checkbox" value="enabled"/>
+                    <label class="label" for="film_{{ x.id }}">{{x.name}}</label>
+                </div>
             {% endfor %}
         </div>
 
@@ -54,7 +57,10 @@
         </button>
         <div class="dropdown-container">
             {% for x in event %}
-                <a href="{% url 'events' x.id %}"><input type='checkbox' class="checkbox">{{x.name}}</a>
+                <div onClick="submitForm('event_'+{{ x.id }})">
+                    <input id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled"/>
+                    <label class="label" for="event_{{ x.id }}">{{x.name}}</label>
+                </div>
             {% endfor %}
         </div>
 

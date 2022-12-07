@@ -11,7 +11,15 @@ for (let i = 0; i < dropdowns.length; i++) {
         }
     });
 }
-// let allLinks = document.querySelectorAll("a");
+
+const all_inputs = document.getElementsByTagName('INPUT');
+console.log(all_inputs)
+for (let i = 0; i < all_inputs.length; i++) {
+    const input = all_inputs[i]
+    if(input.type === "checkbox"){
+        input.check = false
+    }
+}
 
 function submitForm(identity){
     const el = document.getElementById(identity)
