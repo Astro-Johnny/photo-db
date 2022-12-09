@@ -1,4 +1,4 @@
-from photos.tools.utility import getTableData, cameraId, filmId, eventId
+from photos.tools.utility import getTableData, getValues
 from django.shortcuts import render
 
 
@@ -9,31 +9,23 @@ def main(request):
     photos = getTableData("photos_photos")
     return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
 
-def camera(request, id):
-    cameras = getTableData("photos_camera")
-    film = getTableData("photos_film")
-    event = getTableData("photos_event")
-    photos = cameraId("photos_photos", id)
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
-
-def film(request, id):
-    cameras = getTableData("photos_camera")
-    film = getTableData("photos_film")
-    event = getTableData("photos_event")
-    photos = filmId("photos_photos", id)
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
-def event(request, id):
-    cameras = getTableData("photos_camera")
-    film = getTableData("photos_film")
-    event = getTableData("photos_event")
-    photos = eventId("photos_photos", id)
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
-
 
 def option(request):
+    allSelectParams = {}
+    isChecked = []
+
+    values = request.GET
+    for val in values:
+        [param, id] = val.split("_")
+
+        if param in allSelectParams:
+            allSelectParams[param] += (id,)
+        else:
+            allSelectParams[param] = (id,)
+        isChecked.append(val)
 
     cameras = getTableData("photos_camera")
     film = getTableData("photos_film")
     event = getTableData("photos_event")
-    photos = getTableData("photos_photos")
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
+    photos = getValues("photos_photos", allSelectParams)
+    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos, "isChecked": isChecked})
