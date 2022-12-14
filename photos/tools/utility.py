@@ -23,16 +23,12 @@ def getValues(tableName, allSelectParams):
     sort = ""
     conditionSort = False
 
-    print(allSelectParams)
-
     if 'camera' in allSelectParams:
         if len(allSelectParams['camera']) == 1:
             conditionalQuery += f" camera_id={allSelectParams['camera'][0]}"
         else:
             conditionalQuery += f" camera_id IN {str(allSelectParams['camera'])}"
         conditionExist = True
-
-    print(conditionalQuery)
 
     if 'event' in allSelectParams:
         if conditionExist:
@@ -84,3 +80,8 @@ def getValues(tableName, allSelectParams):
         result = namedtuplefetchall(cursor, f"{tableName}")
     con.close()
     return result
+
+def deletePhotoById(deleteId):
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        #cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")

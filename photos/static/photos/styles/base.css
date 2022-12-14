@@ -43,131 +43,141 @@ body {
 }
 
 .upload-btn{
-    position: relative;
+    position: fixed;
     display: inline-block;
-    bottom: 100%;
-    bottom: 0px;
+    bottom: 15px;
 }
 
 .label {
-    display: inline-block;
-    padding-top: 0px;
+    display: none;
+    padding-top: 15px;
 }
 
 .active {
-  background-color: #a329d6;
-  color: white;
+    background-color: #a329d6;
+    color: white;
 }
 
 .dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+div.gallery {
+    border: 1px solid #161616;;
+}
+
+div.gallery:hover {
+    border: 1px solid #818181;
 }
 
 div.gallery img {
-  width: auto;
-  height: 30%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 div.desc {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
-    background-color: #161616;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .responsive {
-  padding: 0 6px;
-  float: left;
-  width: 24.99999%;
+    padding: 23px 6px;
+    float: left;
+    width: 25%;
+    height: 35%;
 }
 
 @media only screen and (max-width: 700px) {
-  .responsive {
-    width: 49.99999%;
-    margin: 6px 0;
-  }
+    .responsive {
+        width: 50%;
+        margin: 6px 0;
+    }
 }
 
 @media only screen and (max-width: 500px) {
-  .responsive {
-    width: 100%;
-  }
+    .responsive {
+        width: 100%;
+    }
 }
 
 .clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
-.checkbox {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Hide the browser's default checkbox */
-.checkbox input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.modal-content {
+    background-color: #0a0a0a;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #161616;
+    width: 78%;
 }
 
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
+.modal-img {
+    margin: auto;
+    display: inline-block;
+    width: auto;
+    max-height: 450px;
 }
 
-/* On mouse-over, add a grey background color */
-.checkbox:hover input ~ .checkmark {
-  background-color: #ccc;
+.modal-info{
+    font-size: 20px;
+    display: inline-block;
+    padding-bottom: 25%;
+    padding-top: 5%
+    padding-left: 15px;
 }
 
-/* When the checkbox is checked, add a blue background */
-.checkbox input:checked ~ .checkmark {
-  background-color: #2196F3;
+th, td {
+  padding-right: 20px;
+  text-align: left;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkbox:after {
-  content: "";
-  position: absolute;
-  display: none;
+.modal-btn{
+    color: #818181;
+    padding-left: 10px;
+    bottom: 0;
+    display: relative;
+    font-weight: bold;
 }
 
-/* Show the checkmark when checked */
-.checkbox input:checked ~ .checkmark:after {
-  display: block;
+.close-photo, .close-upload {
+    color: #818181;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-/* Style the checkmark/indicator */
-.checkbox .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+.close-photo:hover, .close-photo:focus, .close-upload:hover, .close-upload:focus, .modal-btn:hover, .modal-btn:focus{
+    color: #f1f1f1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.select-btn {
+    all: unset;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

@@ -12,107 +12,150 @@
     <title>Photo gallery</title>
 </head>
 <body>
-
-<div class="sidenav">
-    <form action="{% url 'options' %}" method="get" id="myForm">
-        <button type="button" class="dropdown-btn">
-            Sort by
-        </button>
-        <div class="dropdown-container">
-            <div onClick="submitForm('sort_atoz')">
-                {% with "sort_atoz" as val %}
-                    <input id="sort_atoz" name="sort_atoz" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                {% endwith %}
-                <label for="sort_atoz">A to Z</label>
-            </div>
-
-            <div onClick="submitForm('sort_film')">
-                {% with "sort_film" as val %}
-                    <input id="sort_film" name="sort_film" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                {% endwith %}
-                <label for="sort_film">Film</label>
-            </div>
-
-            <div onClick="submitForm('sort_date')">
-                {% with "sort_date" as val %}
-                    <input id="sort_date" name="sort_date" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                {% endwith %}
-                <label for="sort_date">Date taken</label>
-            </div>
-
-            <div onClick="submitForm('sort_camera')">
-                {% with "sort_camera" as val %}
-                    <input id="sort_camera" name="sort_camera" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                {% endwith %}
-                <label for="sort_camera">Camera</label>
-            </div>
-        </div>
-
-
-        <button type="button" class="dropdown-btn">
-            Camera
-        </button>
-        <div class="dropdown-container">
-            {% for x in cameras %}
-                <div onClick="submitForm('camera_'+{{ x.id }})">
-                    {% with x.id|stringformat:"i" as t %}
-                        {% with "camera_"|add:t as val %}
-                        <input id="camera_{{ x.id }}" name="camera_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                        {% endwith %}
+<form action="{% url 'options' %}" method="get" id="myForm">
+    <div class="sidenav">
+        <a href="{% url 'main'%}">Home</a>
+            <button type="button" class="dropdown-btn">
+                Sort by
+            </button>
+            <div class="dropdown-container">
+                <div onClick="submitForm('sort_atoz')">
+                    {% with "sort_atoz" as val %}
+                        <input id="sort_atoz" name="sort_atoz" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
                     {% endwith %}
-                    <label class="label" for="camera_{{ x.id }}">{{x.model}}</label>
+                    <label for="sort_atoz">A to Z</label>
                 </div>
-            {% endfor %}
-        </div>
 
-
-        <button type="button" class="dropdown-btn">
-            Film
-        </button>
-        <div class="dropdown-container">
-            {% for x in film %}
-                <div onClick="submitForm('film_'+{{ x.id }})">
-                    {% with x.id|stringformat:"i" as t %}
-                        {% with "film_"|add:t as val %}
-                        <input id="film_{{ x.id }}" name="film_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                        {% endwith %}
+                <div onClick="submitForm('sort_film')">
+                    {% with "sort_film" as val %}
+                        <input id="sort_film" name="sort_film" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
                     {% endwith %}
-                    <label class="label" for="film_{{ x.id }}">{{x.name}}</label>
+                    <label for="sort_film">Film</label>
                 </div>
-            {% endfor %}
-        </div>
 
-
-        <button type="button" class="dropdown-btn">
-            Event
-        </button>
-        <div class="dropdown-container">
-            {% for x in event %}
-                <div onClick="submitForm('event_'+{{ x.id }})">
-                    {% with x.id|stringformat:"i" as t %}
-                        {% with "event_"|add:t as val %}
-                        <input id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                        {% endwith %}
+                <div onClick="submitForm('sort_date')">
+                    {% with "sort_date" as val %}
+                        <input id="sort_date" name="sort_date" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
                     {% endwith %}
-                    <label class="label" for="event_{{ x.id }}">{{x.name}}</label>
+                    <label for="sort_date">Date taken</label>
                 </div>
-            {% endfor %}
+
+                <div onClick="submitForm('sort_camera')">
+                    {% with "sort_camera" as val %}
+                        <input id="sort_camera" name="sort_camera" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                    {% endwith %}
+                    <label for="sort_camera">Camera</label>
+                </div>
+            </div>
+
+
+            <button type="button" class="dropdown-btn">
+                Camera
+            </button>
+            <div class="dropdown-container">
+                {% for x in cameras %}
+                    <div onClick="submitForm('camera_'+{{ x.id }})">
+                        {% with x.id|stringformat:"i" as t %}
+                            {% with "camera_"|add:t as val %}
+                            <input id="camera_{{ x.id }}" name="camera_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            {% endwith %}
+                        {% endwith %}
+                        <label for="camera_{{ x.id }}">{{x.model}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <button type="button" class="dropdown-btn">
+                Film
+            </button>
+            <div class="dropdown-container">
+                {% for x in film %}
+                    <div onClick="submitForm('film_'+{{ x.id }})">
+                        {% with x.id|stringformat:"i" as t %}
+                            {% with "film_"|add:t as val %}
+                            <input id="film_{{ x.id }}" name="film_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            {% endwith %}
+                        {% endwith %}
+                        <label for="film_{{ x.id }}">{{x.name}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <button type="button" class="dropdown-btn">
+                Event
+            </button>
+            <div class="dropdown-container">
+                {% for x in event %}
+                    <div onClick="submitForm('event_'+{{ x.id }})">
+                        {% with x.id|stringformat:"i" as t %}
+                            {% with "event_"|add:t as val %}
+                            <input id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            {% endwith %}
+                        {% endwith %}
+                        <label for="event_{{ x.id }}">{{x.name}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        <a class="upload-btn" id="myBtn">Upload</a>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close-upload">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
         </div>
+    </div>
 
-
-        <a class="upload-btn" href="#">Upload</a>
-    </form>
-</div>
-
-<div class="main">
+    <div class="main">
         {% for x in photos %}
             <div class="responsive">
+                <button class="select-btn" id="photo_{{ x.id }}" name="photo_{{ x.id }}" type="submit" value="show">
                 <div class="gallery">
                     <img src="{% static 'photos/pictures/' %}{{ x.fileName }}">
                     <div class="desc">{{x.fileName}}</div>
                 </div>
+                </button>
             </div>
         {% endfor %}
-</div>
+
+        <div id="imgModal" class="modal">
+            <div class="modal-content">
+                <span class="close-photo">&times;</span>
+                <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.fileName }}">
+                <table class="modal-info">
+                    <tr>
+                        <th>Filename: </th>
+                        <td contenteditable="true">{{sPhoto.fileName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Camera: </th>
+                        <td contenteditable="true">{{sPhoto.camera_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Event: </th>
+                        <td contenteditable="true">{{sPhoto.event_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Film: </th>
+                        <td contenteditable="true">{{sPhoto.film_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Time Stamp: </th>
+                        <td contenteditable="true">{{sPhoto.timestamp}}</td>
+                    </tr>
+                    <tr>
+                        <th>FilmEnd: </th>
+                        <td contenteditable="true">{{sPhoto.filmEnd}}</td>
+                    </tr>
+                </table>
+                <button id="delete" name="delete" type="submit" value="{{sPhoto.id}}">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>
