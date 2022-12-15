@@ -1,5 +1,5 @@
 const dropdowns = document.getElementsByClassName("dropdown-btn");
-console.log(1)
+
 for (let i = 0; i < dropdowns.length; i++) {
     dropdowns[i].addEventListener("click", function() {
         this.classList.toggle("active");
@@ -40,19 +40,21 @@ if (window.location.href.includes("photo_")){
     imgModal.style.display = "block";
 }
 
-var imgSpan = document.getElementsByClassName("close-photo")[0];
+const imgSpan = document.getElementsByClassName("close-photo")[0];
 
-imgSpan.onclick = function() {
-    imgModal.style.display = "none";
-    if (window.location.href.includes("&")){
-        tagList = window.location.href.split("&")
-        tagList.pop()
-        path = tagList.join("&")
-    } else {
-        path = window.location.origin
+if (imgSpan !== undefined){
+    imgSpan.onclick = function() {
+        imgModal.style.display = "none";
+        if (window.location.href.includes("&")){
+            tagList = window.location.href.split("&")
+            tagList.pop()
+            path = tagList.join("&")
+        } else {
+            path = window.location.origin
+        }
+
+        window.location.replace(path)
     }
-
-    window.location.replace(path)
 }
 
 window.onclick = function(event) {
@@ -74,15 +76,17 @@ window.onclick = function(event) {
     }
 }
 
-if (window.location.href.includes("delete")){
-    if (window.location.href.includes("&")){
-        tagList = window.location.href.split("&")
-        tagList.pop()
-        path = tagList.join("&")
-    } else {
-        path = window.location.origin
+function submitModalForm() {
+    if (window.location.href.includes("photo_")){
+        if (window.location.href.includes("&")){
+            tagList = window.location.href.split("&")
+            tagList.pop()
+            path = tagList.join("&")
+        } else {
+            path = window.location.origin
+        }
     }
-
-    window.location.replace(path)
+    const modal_form = document.getElementById("modal-form");
+    modal_form.action = path
+    modal_form.submit()
 }
-

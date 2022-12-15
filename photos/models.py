@@ -27,3 +27,10 @@ class Photos(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, blank=True, null=True, default='')
     timestamp = models.DateTimeField()
     filmend = models.DateTimeField(blank=True, null=True, default='')
+
+class Image(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='photos/static/photos/pictures')
+
+    def __str__(self):
+        return self.title

@@ -3,6 +3,13 @@ from django.shortcuts import render
 
 
 def main(request):
+
+    if request.method == "POST":
+        values = request.POST.copy()
+        if "delete" in values:
+            deleteId = values["delete"]
+            deletePhotoById(deleteId)
+
     cameras = getTableData("photos_camera")
     film = getTableData("photos_film")
     event = getTableData("photos_event")
@@ -14,15 +21,17 @@ def option(request):
     allSelectParams = {}
     isChecked = []
     photoId = None
-    deleteId = None
     sPhoto = None
 
-    values = request.GET.copy()
-    if "delete" in values:
-        deleteId = values["delete"]
-        deletePhotoById(deleteId)
-        values.pop("delete")
+    if request.method == "POST":
+        values = request.POST.copy()
+        if "delete" in values:
+            deleteId = values["delete"]
+            deletePhotoById(deleteId)
+        if "save" in values:
+            print(values)
 
+    values = request.GET.copy()
     for val in values:
         [param, id] = val.split("_")
 
