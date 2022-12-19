@@ -26,7 +26,7 @@ class Photos(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, blank=True, null=True, default='')
     film = models.ForeignKey(Film, on_delete=models.CASCADE, blank=True, null=True, default='')
     timestamp = models.DateTimeField()
-    filmend = models.DateTimeField(blank=True, null=True, default='')
+    filmEnd = models.DateTimeField(blank=True, null=True, default='')
 
 class Image(models.Model):
     title = models.CharField(max_length=200)

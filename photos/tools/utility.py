@@ -1,5 +1,6 @@
-from collections import namedtuple
+import os
 import sqlite3
+from collections import namedtuple
 
 
 def namedtuplefetchall(cursor, name):
@@ -81,7 +82,44 @@ def getValues(tableName, allSelectParams):
     con.close()
     return result
 
+
 def deletePhotoById(deleteId):
     with sqlite3.connect('./db.sqlite3') as con:
         cursor = con.cursor()
-        #cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
+        cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={deleteId};")
+        result = namedtuplefetchall(cursor, "photos_photos")
+        os.remove("photos/static/photos/pictures/" + result[0].fileName)
+        cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
+
+
+def modifyPhotoById(values):
+    saveId = values["save"]
+    filename = values["filename"]
+    camera = values["camera"]
+    event = values["event"]
+    film = values["film"]
+    timestamp = values["timestamp"]
+    filmEnd = values["filmEnd"]
+
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={saveId};")
+        oldFilename = namedtuplefetchall(cursor, "photos_photos")
+        os.rename("photos/static/photos/pictures/" + oldFilename[0].fileName,
+                  "photos/static/photos/pictures/" + filename)
+        cursor.execute(
+            f"update photos_photos SET filename='{filename}', camera_id='{camera}', event_id='{event}', film_id='{film}', timestamp='{timestamp}', filmEnd='{filmEnd}' WHERE id={saveId};")
+
+
+def addPhotoById(values):
+    filename = values["filename"]
+    camera = values["camera"]
+    event = values["event"]
+    film = values["film"]
+    timestamp = values["timestamp"]
+    filmEnd = values["filmEnd"]
+
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        cursor.execute(
+            f"INSERT INTO photos_photos(filename, camera_id, event_id, film_id, timestamp, filmEnd) VALUES ('{filename}', '{camera}', '{event}', '{film}', '{timestamp}', '{filmEnd}');")

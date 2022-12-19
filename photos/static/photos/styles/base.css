@@ -142,6 +142,7 @@ div.desc {
 }
 
 .modal-info{
+    all: unset;
     font-size: 20px;
     right: 30%;
     display: inline-block;

@@ -14,10 +14,9 @@ for (let i = 0; i < dropdowns.length; i++) {
 
 function submitForm(identity){
     const el = document.getElementById(identity)
-    if (el.checked) {
-        el.removeAttribute("checked")
-    } else {
-        el.setAttribute("checked", "")
+    if (!el.checked && window.location.href.includes("options") && !window.location.href.includes("&")) {
+        window.location.href = "/"
+        return;
     }
     document.getElementById("myForm").submit();
 }
@@ -76,17 +75,20 @@ window.onclick = function(event) {
     }
 }
 
-function submitModalForm() {
-    if (window.location.href.includes("photo_")){
-        if (window.location.href.includes("&")){
-            tagList = window.location.href.split("&")
-            tagList.pop()
-            path = tagList.join("&")
-        } else {
-            path = window.location.origin
-        }
-    }
+function submitModalForm(data) {
     const modal_form = document.getElementById("modal-form");
-    modal_form.action = path
+
+    if (data === "save"){
+        const filename = document.getElementById("filename")
+        const new_filename = document.getElementById("new-filename")
+        filename.value = new_filename.innerText
+    }else if (data === "add"){
+        if (!window.location.href.includes("options")) {
+            modal_form.action = window.location.href + "/options"
+        }
+        const filename = document.getElementById("add-filename")
+        const new_filename = document.getElementById("add-new-filename")
+        filename.value = new_filename.innerText
+    }
     modal_form.submit()
 }

@@ -1,14 +1,10 @@
-from photos.tools.utility import getTableData, getValues, deletePhotoById
-from django.shortcuts import render
+from django.core.files.storage import FileSystemStorage
+
+from photos.tools.utility import getTableData, getValues, deletePhotoById, modifyPhotoById, addPhotoById
+from django.shortcuts import render, redirect
 
 
 def main(request):
-
-    if request.method == "POST":
-        values = request.POST.copy()
-        if "delete" in values:
-            deleteId = values["delete"]
-            deletePhotoById(deleteId)
 
     cameras = getTableData("photos_camera")
     film = getTableData("photos_film")
@@ -28,8 +24,26 @@ def option(request):
         if "delete" in values:
             deleteId = values["delete"]
             deletePhotoById(deleteId)
+            site_url = request.build_absolute_uri()
+            if "options?photo" in site_url:
+                return redirect("main")
+            else:
+                tagList = site_url.split("&")
+                tagList.pop()
+                new_site_url = "&".join(tagList)
+                return redirect(new_site_url)
         if "save" in values:
+            modifyPhotoById(values)
+        if "add" in values:
+            request_file = request.FILES['img'] if 'img' in request.FILES else None
+            if request_file:
+                fs = FileSystemStorage()
+                file = fs.save(request_file.name, request_file)
+                fileurl = fs.url(file)
+
+                print(fileurl)
             print(values)
+            addPhotoById(values)
 
     values = request.GET.copy()
     for val in values:
