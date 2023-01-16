@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 
 
 def main(request):
-
     cameras = getTableData("photos_camera")
     film = getTableData("photos_film")
     event = getTableData("photos_event")
@@ -21,6 +20,7 @@ def option(request):
 
     if request.method == "POST":
         values = request.POST.copy()
+        print(values)
         if "delete" in values:
             deleteId = values["delete"]
             deletePhotoById(deleteId)
@@ -35,15 +35,12 @@ def option(request):
         if "save" in values:
             modifyPhotoById(values)
         if "add" in values:
-            request_file = request.FILES['img'] if 'img' in request.FILES else None
-            if request_file:
-                fs = FileSystemStorage()
-                file = fs.save(request_file.name, request_file)
-                fileurl = fs.url(file)
-
-                print(fileurl)
-            print(values)
             addPhotoById(values)
+            img = request.FILES["img"]
+            filename = values["filename"]
+            files = FileSystemStorage(location=r"C:\Users\rober\Documents\Faili\Programmas\photo-db\photos\static\photos\pictures")
+            print(files.location)
+            files.save(filename, img)
 
     values = request.GET.copy()
     for val in values:
@@ -68,4 +65,6 @@ def option(request):
             if photo.id == photoId:
                 sPhoto = photo
 
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos, "isChecked": isChecked, "sPhoto": sPhoto})
+    return render(request, "photos/index.html",
+                  {"cameras": cameras, "film": film, "event": event, "photos": photos, "isChecked": isChecked,
+                   "sPhoto": sPhoto})

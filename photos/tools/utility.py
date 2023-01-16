@@ -123,3 +123,11 @@ def addPhotoById(values):
         cursor = con.cursor()
         cursor.execute(
             f"INSERT INTO photos_photos(filename, camera_id, event_id, film_id, timestamp, filmEnd) VALUES ('{filename}', '{camera}', '{event}', '{film}', '{timestamp}', '{filmEnd}');")
+
+
+def addFilm(deleteId):
+    with sqlite3.connect('./db.sqlite3') as con:
+        cursor = con.cursor()
+        result = namedtuplefetchall(cursor, "photos_film")
+        os.remove("photos/static/photos/pictures/" + result[0].fileName)
+        cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
