@@ -57,10 +57,12 @@
                     <div>
                         {% with x.id|stringformat:"i" as t %}
                             {% with "camera_"|add:t as val %}
-                            <input onClick="submitForm('camera_'+{{ x.id }})" id="camera_{{ x.id }}" name="camera_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            <label class="container">{{x.model}}
+                                <input class="check" onClick="submitForm('camera_'+{{ x.id }})" id="camera_{{ x.id }}" name="camera_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                                <span class="checkmark"></span>
+                            </label>
                             {% endwith %}
                         {% endwith %}
-                        <label onClick="submitForm('camera_'+{{ x.id }})" for="camera_{{ x.id }}">{{x.model}}</label>
                     </div>
                 {% endfor %}
             </div>
@@ -71,13 +73,15 @@
             </button>
             <div class="dropdown-container">
                 {% for x in film %}
-                    <div onClick="submitForm('film_'+{{ x.id }})">
+                    <div>
                         {% with x.id|stringformat:"i" as t %}
                             {% with "film_"|add:t as val %}
-                            <input id="film_{{ x.id }}" name="film_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            <label class="container">{{x.name}}
+                                <input class="check" onClick="submitForm('film_'+{{ x.id }})" id="film_{{ x.id }}" name="film_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                                <span class="checkmark"></span>
+                            </label>
                             {% endwith %}
                         {% endwith %}
-                        <label for="film_{{ x.id }}">{{x.name}}</label>
                     </div>
                 {% endfor %}
             </div>
@@ -88,13 +92,15 @@
             </button>
             <div class="dropdown-container">
                 {% for x in event %}
-                    <div onClick="submitForm('event_'+{{ x.id }})">
+                    <div>
                         {% with x.id|stringformat:"i" as t %}
                             {% with "event_"|add:t as val %}
-                            <input id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            <label class="container">{{x.name}}
+                                <input class="check" onClick="submitForm('event_'+{{ x.id }})" id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                                <span class="checkmark"></span>
+                            </label>
                             {% endwith %}
                         {% endwith %}
-                        <label for="event_{{ x.id }}">{{x.name}}</label>
                     </div>
                 {% endfor %}
             </div>
