@@ -107,7 +107,7 @@
             <div class="responsive">
                 <button class="select-btn" id="photo_{{ x.id }}" name="photo_{{ x.id }}" type="submit" value="show">
                 <div class="gallery">
-                    <img src="{% static 'photos/pictures/' %}{{ x.fileName }}">
+                    <img src="{% static 'photos/pictures/' %}{{ x.timestamp }}/{{ x.fileName }}">
                     <div class="desc">{{x.fileName}}</div>
                 </div>
                 </button>
@@ -187,7 +187,9 @@
         <div id="imgModal" class="modal">
             <div class="modal-content">
                 <span class="close-photo">&times;</span>
-                <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.fileName }}">
+                <div class="modal-gallery">
+                    <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.timestamp }}/{{ sPhoto.fileName }}">
+                </div>
                 <table class="modal-info">
                     <tr>
                         <th>Filename: </th>

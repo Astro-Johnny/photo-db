@@ -23,7 +23,8 @@ def option(request):
         print(values)
         if "delete" in values:
             deleteId = values["delete"]
-            deletePhotoById(deleteId)
+            timestamp = values["timestamp"]
+            deletePhotoById(deleteId, timestamp)
             site_url = request.build_absolute_uri()
             if "options?photo" in site_url:
                 return redirect("main")
@@ -34,11 +35,16 @@ def option(request):
                 return redirect(new_site_url)
         if "save" in values:
             modifyPhotoById(values)
+        if "download" in values:
+            filename = values["download"]
+            timestamp = values["timestamp"]
+            downloadPhotoById(filename, timestamp)
         if "add" in values:
             addPhotoById(values)
             img = request.FILES["img"]
             filename = values["filename"]
-            files = FileSystemStorage(location=r"C:\Users\rober\Documents\Faili\Programmas\photo-db\photos\static\photos\pictures")
+            timestamp = values["timestamp"]
+            files = FileSystemStorage(location='photos/static/photos/pictures/' + timestamp)
             print(files.location)
             files.save(filename, img)
 

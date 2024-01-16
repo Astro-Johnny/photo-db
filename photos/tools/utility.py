@@ -83,12 +83,14 @@ def getValues(tableName, allSelectParams):
     return result
 
 
-def deletePhotoById(deleteId):
+def deletePhotoById(deleteId, timestamp):
     with sqlite3.connect('./db.sqlite3') as con:
         cursor = con.cursor()
         cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={deleteId};")
         result = namedtuplefetchall(cursor, "photos_photos")
-        os.remove("photos/static/photos/pictures/" + result[0].fileName)
+        filename = Path("photos/static/photos/pictures/" + timestamp + "/" + result[0].fileName)
+        if filename.is_file():
+            os.remove(filename)
         cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
 
 
@@ -105,29 +107,44 @@ def modifyPhotoById(values):
         cursor = con.cursor()
         cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={saveId};")
         oldFilename = namedtuplefetchall(cursor, "photos_photos")
-        os.rename("photos/static/photos/pictures/" + oldFilename[0].fileName,
-                  "photos/static/photos/pictures/" + filename)
+        os.rename("photos/static/photos/pictures/" + timestamp + "/" + oldFilename[0].fileName,
+                  "photos/static/photos/pictures/" + timestamp + "/" + filename)
         cursor.execute(
-            f"update photos_photos SET filename='{filename}', camera_id='{camera}', event_id='{event}', film_id='{film}', timestamp='{timestamp}', filmEnd='{filmEnd}' WHERE id={saveId};")
+            f"update photos_photos SET "
+            f"filename='{filename}', "
+            f"camera_id='{camera}', "
+            f"event_id='{event}', "
+            f"film_id='{film}', "
+            f"timestamp='{timestamp}', "
+            f"filmEnd='{filmEnd}' "
+            f"WHERE "
+            f"id={saveId};")
 
+def downloadPhotoById(filename, timestamp):
+    path = Path("photos/static/photos/pictures/" + timestamp + "/" + filename)
+
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type='application/force-download')
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
 
 def addPhotoById(values):
     filename = values["filename"]
     camera = values["camera"]
-    event = values["event"]
-    film = values["film"]
+    if values["event"] == "none":
+        event = ''
+    else:
+        event = values["event"]
+    if values["film"] == "none":
+        film = ''
+    else:
+        film = values["film"]
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
 
     with sqlite3.connect('./db.sqlite3') as con:
         cursor = con.cursor()
-        cursor.execute(
-            f"INSERT INTO photos_photos(filename, camera_id, event_id, film_id, timestamp, filmEnd) VALUES ('{filename}', '{camera}', '{event}', '{film}', '{timestamp}', '{filmEnd}');")
+        cursor.execute(f"INSERT INTO photos_photos(filename, camera_id, event_id, film_id, timestamp, filmEnd) VALUES ('{filename}', '{camera}', '{event}', '{film}', '{timestamp}', '{filmEnd}');")
 
-
-def addFilm(deleteId):
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        result = namedtuplefetchall(cursor, "photos_film")
-        os.remove("photos/static/photos/pictures/" + result[0].fileName)
-        cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
