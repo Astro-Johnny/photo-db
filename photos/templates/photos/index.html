@@ -19,33 +19,16 @@
                 Sort by
             </button>
             <div class="dropdown-container">
-                <div onClick="submitForm('sort_atoz')">
-                    {% with "sort_atoz" as val %}
-                        <input id="sort_atoz" name="sort_atoz" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                    {% endwith %}
-                    <label for="sort_atoz">A to Z</label>
-                </div>
-
-                <div onClick="submitForm('sort_film')">
-                    {% with "sort_film" as val %}
-                        <input id="sort_film" name="sort_film" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                    {% endwith %}
-                    <label for="sort_film">Film</label>
-                </div>
-
-                <div onClick="submitForm('sort_date')">
-                    {% with "sort_date" as val %}
-                        <input id="sort_date" name="sort_date" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                    {% endwith %}
-                    <label for="sort_date">Date taken</label>
-                </div>
-
-                <div onClick="submitForm('sort_camera')">
-                    {% with "sort_camera" as val %}
-                        <input id="sort_camera" name="sort_camera" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
-                    {% endwith %}
-                    <label for="sort_camera">Camera</label>
-                </div>
+                {% for sort in sorts %}
+                    <div>
+                        {% with sort.0 as val %}
+                        <label class="container">{{ sort.1 }}
+                            <input onClick="submitForm('{{ sort.0 }}')" id="{{ sort.0 }}" name="{{ sort.0 }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
+                            <span class="checkmark"></span>
+                        </label>
+                        {% endwith %}
+                    </div>
+                {% endfor %}
             </div>
 
 
