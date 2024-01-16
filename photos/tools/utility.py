@@ -1,6 +1,11 @@
+import mimetypes
 import os
 import sqlite3
 from collections import namedtuple
+from pathlib import Path
+
+from django.conf import settings
+from django.http import HttpResponse
 
 
 def namedtuplefetchall(cursor, name):

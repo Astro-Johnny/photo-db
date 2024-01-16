@@ -1,15 +1,23 @@
 from django.core.files.storage import FileSystemStorage
 
-from photos.tools.utility import getTableData, getValues, deletePhotoById, modifyPhotoById, addPhotoById
+from photos.tools.utility import getTableData, getValues, deletePhotoById, modifyPhotoById, addPhotoById, \
+    downloadPhotoById
 from django.shortcuts import render, redirect
 
+sorts = [['sort_atoz', 'A to Z'], ['sort_film', 'Film'], ['sort_date', 'Date'], ['sort_camera', 'Camera']]
 
 def main(request):
     cameras = getTableData("photos_camera")
     film = getTableData("photos_film")
     event = getTableData("photos_event")
     photos = getTableData("photos_photos")
-    return render(request, "photos/index.html", {"cameras": cameras, "film": film, "event": event, "photos": photos})
+    return render(request, "photos/index.html", {
+        "cameras": cameras,
+        "film": film,
+        "event": event,
+        "photos": photos,
+        "sorts": sorts
+    })
 
 
 def option(request):
@@ -71,6 +79,12 @@ def option(request):
             if photo.id == photoId:
                 sPhoto = photo
 
-    return render(request, "photos/index.html",
-                  {"cameras": cameras, "film": film, "event": event, "photos": photos, "isChecked": isChecked,
-                   "sPhoto": sPhoto})
+    return render(request, "photos/index.html",{
+        "cameras": cameras,
+        "film": film,
+        "event": event,
+        "photos": photos,
+        "isChecked": isChecked,
+        "sPhoto": sPhoto,
+        "sorts": sorts
+    })
