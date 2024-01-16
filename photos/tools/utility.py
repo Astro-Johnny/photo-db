@@ -98,8 +98,14 @@ def modifyPhotoById(values):
     saveId = values["save"]
     filename = values["filename"]
     camera = values["camera"]
-    event = values["event"]
-    film = values["film"]
+    if values["event"] == "none":
+        event = {'null': None}
+    else:
+        event = values["event"]
+    if values["film"] == "none":
+        film = {'null': None}
+    else:
+        film = values["film"]
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
 

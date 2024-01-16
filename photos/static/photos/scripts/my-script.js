@@ -12,6 +12,29 @@ for (let i = 0; i < dropdowns.length; i++) {
     });
 }
 
+//Upload modal image display start
+function triggerFileInput() {
+    document.getElementById('img').click();
+}
+
+function displayImage(input) {
+    var file = input.files[0];
+
+    if (file) {
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById('add-new-filename').innerHTML = file.name;
+            document.getElementById('uploadedImage').src = e.target.result;
+            document.getElementById('click').style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+//Upload modal image display end
+
 function submitForm(identity){
     const el = document.getElementById(identity)
     if (!el.checked && window.location.href.includes("options") && !window.location.href.includes("&")) {
@@ -24,26 +47,31 @@ function submitForm(identity){
 const modal = document.getElementById("myModal");
 const btn = document.getElementById("myBtn");
 const span = document.getElementsByClassName("close-upload")[0];
+const body = document.getElementsByTagName('body')[0];
 
 btn.onclick = function() {
     modal.style.display = "block";
+    body.style.overflow = "hidden";
 }
 
 span.onclick = function() {
     modal.style.display = "none";
+    body.style.overflow = "auto";
 }
 
 const imgModal = document.getElementById("imgModal");
+const imgSpan = document.getElementsByClassName("close-photo")[0];
 
 if (window.location.href.includes("photo_")){
     imgModal.style.display = "block";
+    body.style.overflow = "hidden";
 }
 
-const imgSpan = document.getElementsByClassName("close-photo")[0];
 
 if (imgSpan !== undefined){
     imgSpan.onclick = function() {
         imgModal.style.display = "none";
+        body.style.overflow = "auto";
         if (window.location.href.includes("&")){
             tagList = window.location.href.split("&")
             tagList.pop()
@@ -59,10 +87,12 @@ if (imgSpan !== undefined){
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        body.style.overflow = "auto";
     }
 
     if (event.target == imgModal) {
         imgModal.style.display = "none";
+        body.style.overflow = "auto";
         if (window.location.href.includes("&")){
             tagList = window.location.href.split("&")
             tagList.pop()
