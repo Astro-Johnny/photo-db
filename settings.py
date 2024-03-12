@@ -124,7 +124,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Base url to serve media files
-MEDIA_URL = '/photos/static/photos/'
+MEDIA_URL = '/photos/{{ timestamp }}/'
 
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, '/photos/static/photos')
+MEDIA_ROOT = 'C:/Users/rober/Documents/Faili/Programmas/photo-db/photos/static/photos/'

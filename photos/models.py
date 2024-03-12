@@ -19,6 +19,7 @@ class Film(models.Model):
     name = models.CharField(max_length=200)
     iso = models.IntegerField()
     numOfImg = models.IntegerField()
+
 class Photos(models.Model):
     id = models.IntegerField(primary_key=True)
     fileName = models.CharField(max_length=200)

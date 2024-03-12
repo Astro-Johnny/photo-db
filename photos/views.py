@@ -44,16 +44,13 @@ def option(request):
         if "save" in values:
             modifyPhotoById(values)
         if "download" in values:
-            filename = values["download"]
-            timestamp = values["timestamp"]
-            downloadPhotoById(filename, timestamp)
+            downloadPhotoById(values)
         if "add" in values:
             addPhotoById(values)
             img = request.FILES["img"]
             filename = values["filename"]
             timestamp = values["timestamp"]
             files = FileSystemStorage(location='photos/static/photos/pictures/' + timestamp)
-            print(files.location)
             files.save(filename, img)
 
     values = request.GET.copy()

@@ -7,14 +7,14 @@ body {
 }
 /* Side navigation start */
 .main {
-    margin-right: 15%;
+    margin-right: 200px;
     font-size: 18px;
     padding: 0px 10px;
 }
 
 .sidenav {
     height: 100%;
-    width: 15%;
+    width: 200px;
     position: fixed;
     z-index: 1;
     top: 0;
