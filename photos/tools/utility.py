@@ -3,9 +3,10 @@ import os
 import sqlite3
 from collections import namedtuple
 from pathlib import Path
-
-from django.conf import settings
 from django.http import HttpResponse
+
+import settings
+from photos.models import Photos, Camera, Film, Event
 
 
 def namedtuplefetchall(cursor, name):
@@ -131,31 +132,39 @@ def modifyPhotoById(values):
             f"WHERE "
             f"id={saveId};")
 
-def downloadPhotoById(filename, timestamp):
-    path = Path("photos/static/photos/pictures/" + timestamp + "/" + filename)
+def downloadPhotoById(values):
+    filename = values["download"]
+    timestamp = values["timestamp"]
+    path = Path("pictures/" + timestamp + "/" + filename)
 
     file_path = os.path.join(settings.MEDIA_ROOT, path)
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type='application/force-download')
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
+    with open(file_path, 'rb') as fh:
+        response = HttpResponse(fh, content_type="image/jpeg")
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        return response
 
 def addPhotoById(values):
     filename = values["filename"]
-    camera = values["camera"]
+    camera = int(values["camera"])
+
     if values["event"] == "none":
-        event = ''
+        event = None
     else:
-        event = values["event"]
+        event = Event.objects.get(id=int(values["event"]))
+
     if values["film"] == "none":
-        film = ''
+        film = None
     else:
-        film = values["film"]
+        film = Film.objects.get(id=int(values["film"]))
+
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
 
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        cursor.execute(f"INSERT INTO photos_photos(filename, camera_id, event_id, film_id, timestamp, filmEnd) VALUES ('{filename}', '{camera}', '{event}', '{film}', '{timestamp}', '{filmEnd}');")
-
+    Photos.objects.create(
+        fileName=filename,
+        camera=Camera.objects.get(id=camera),
+        event=event,
+        film=film,
+        timestamp=timestamp,
+        filmEnd=filmEnd
+    )

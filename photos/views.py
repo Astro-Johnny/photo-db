@@ -28,7 +28,6 @@ def option(request):
 
     if request.method == "POST":
         values = request.POST.copy()
-        print(values)
         if "delete" in values:
             deleteId = values["delete"]
             timestamp = values["timestamp"]
