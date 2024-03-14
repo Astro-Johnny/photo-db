@@ -89,15 +89,15 @@ def getValues(tableName, allSelectParams):
     return result
 
 
-def deletePhotoById(deleteId, timestamp):
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={deleteId};")
-        result = namedtuplefetchall(cursor, "photos_photos")
-        filename = Path("photos/static/photos/pictures/" + timestamp + "/" + result[0].fileName)
-        if filename.is_file():
-            os.remove(filename)
-        cursor.execute(f"DELETE FROM photos_photos WHERE id={deleteId};")
+def deletePhotoById(values):
+    print(values)
+    deleteId = values["delete"]
+    timestamp = values["timestamp"]
+    queryset = Photos.objects.get(id=deleteId)
+    filepath = Path("photos/static/photos/pictures/" + timestamp + "/" + queryset.fileName)
+    if filepath.is_file():
+        os.remove(filepath)
+    Photos.objects.get(id=deleteId).delete()
 
 
 def modifyPhotoById(values):

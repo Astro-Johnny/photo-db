@@ -29,9 +29,7 @@ def option(request):
     if request.method == "POST":
         values = request.POST.copy()
         if "delete" in values:
-            deleteId = values["delete"]
-            timestamp = values["timestamp"]
-            deletePhotoById(deleteId, timestamp)
+            deletePhotoById(values)
             site_url = request.build_absolute_uri()
             if "options?photo" in site_url:
                 return redirect("main")
