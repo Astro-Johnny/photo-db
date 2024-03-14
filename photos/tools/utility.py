@@ -1,8 +1,8 @@
-import mimetypes
 import os
 import sqlite3
 from collections import namedtuple
 from pathlib import Path
+
 from django.http import HttpResponse
 
 import settings
@@ -101,36 +101,46 @@ def deletePhotoById(values):
 
 
 def modifyPhotoById(values):
+    print(values)
     saveId = values["save"]
     filename = values["filename"]
-    camera = values["camera"]
-    if values["event"] == "none":
-        event = {'null': None}
-    else:
-        event = values["event"]
-    if values["film"] == "none":
-        film = {'null': None}
-    else:
-        film = values["film"]
+    camera = int(values["camera"])
+    event = values["event"]
+    film = values["film"]
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
 
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT fileName FROM photos_photos WHERE id={saveId};")
-        oldFilename = namedtuplefetchall(cursor, "photos_photos")
-        os.rename("photos/static/photos/pictures/" + timestamp + "/" + oldFilename[0].fileName,
-                  "photos/static/photos/pictures/" + timestamp + "/" + filename)
-        cursor.execute(
-            f"update photos_photos SET "
-            f"filename='{filename}', "
-            f"camera_id='{camera}', "
-            f"event_id='{event}', "
-            f"film_id='{film}', "
-            f"timestamp='{timestamp}', "
-            f"filmEnd='{filmEnd}' "
-            f"WHERE "
-            f"id={saveId};")
+    print('film is: ')
+    print(film)
+
+    if event == '' or "none":
+        event = None
+    else:
+        event = Event.objects.get(id=int(event)).id
+
+    if film == '' or "none":
+        film = None
+    else:
+        film = Film.objects.get(id=int(film)).id
+
+    if filmEnd == '':
+        filmEnd = None
+    else:
+        filmEnd = filmEnd
+
+    queryset = Photos.objects.get(id=saveId)
+    os.rename("photos/static/photos/pictures/" + timestamp + "/" + queryset.fileName,
+              "photos/static/photos/pictures/" + timestamp + "/" + filename)
+
+    Photos.objects.filter(id=saveId).update(
+        fileName=filename,
+        camera=Camera.objects.get(id=camera),
+        event=event,
+        film=film,
+        timestamp=timestamp,
+        filmEnd=filmEnd
+    )
+
 
 def downloadPhotoById(values):
     filename = values["download"]
@@ -143,22 +153,29 @@ def downloadPhotoById(values):
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         return response
 
+
 def addPhotoById(values):
     filename = values["filename"]
     camera = int(values["camera"])
-
-    if values["event"] == "none":
-        event = None
-    else:
-        event = Event.objects.get(id=int(values["event"]))
-
-    if values["film"] == "none":
-        film = None
-    else:
-        film = Film.objects.get(id=int(values["film"]))
-
+    event = values["event"]
+    film = values["film"]
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
+
+    if event == "none":
+        event = None
+    else:
+        event = Event.objects.get(id=int(event))
+
+    if film == "none":
+        film = None
+    else:
+        film = Film.objects.get(id=int(film))
+
+    if filmEnd == '':
+        filmEnd = None
+    else:
+        filmEnd = filmEnd
 
     Photos.objects.create(
         fileName=filename,
