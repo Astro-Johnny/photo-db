@@ -7,13 +7,12 @@ from photos.models import Photos, Camera, Film, Event
 
 sorts = [['sort_atoz', 'A to Z'], ['sort_film', 'Film'], ['sort_date', 'Date'], ['sort_camera', 'Camera']]
 
+
 def main(request):
     cameras = Camera.objects.all()
     film = Film.objects.all()
     event = Event.objects.all()
     photos = Photos.objects.all()
-    for photo in photos:
-        print(photo.timestamp)
     return render(request, "photos/index.html", {
         "cameras": cameras,
         "film": film,
@@ -69,14 +68,14 @@ def option(request):
     cameras = Camera.objects.all()
     film = Film.objects.all()
     event = Event.objects.all()
-    photos = getValues("photos_photos", allSelectParams)
+    photos = getValues(allSelectParams)
 
     if photoId:
         for photo in photos:
             if photo.id == photoId:
                 sPhoto = photo
 
-    return render(request, "photos/index.html",{
+    return render(request, "photos/index.html", {
         "cameras": cameras,
         "film": film,
         "event": event,

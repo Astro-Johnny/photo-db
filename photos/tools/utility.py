@@ -1,82 +1,49 @@
 import os
-import sqlite3
-from collections import namedtuple
 from pathlib import Path
 
+from django.db.models import Q
 from django.http import HttpResponse
 
 import settings
 from photos.models import Photos, Camera, Film, Event
 
 
-def namedtuplefetchall(cursor, name):
-    desc = cursor.description
-    nt_result = namedtuple(name, [col[0] for col in desc])
-    return [nt_result(*row) for row in cursor.fetchall()]
-
-
-def getValues(tableName, allSelectParams):
-    conditionalQuery = "WHERE"
-    conditionExist = False
-    sort = ""
-    conditionSort = False
+def getValues(allSelectParams):
+    query_objects = Q()
+    order_objects = []
 
     if 'camera' in allSelectParams:
-        if len(allSelectParams['camera']) == 1:
-            conditionalQuery += f" camera_id={allSelectParams['camera'][0]}"
-        else:
-            conditionalQuery += f" camera_id IN {str(allSelectParams['camera'])}"
-        conditionExist = True
+        camera_objects = Q()
+        for item in allSelectParams['camera']:
+            camera_objects |= Q(camera_id=item)
+        query_objects &= Q(camera_objects)
 
     if 'event' in allSelectParams:
-        if conditionExist:
-            conditionalQuery += " AND"
-        if len(allSelectParams['event']) == 1:
-            conditionalQuery += f" event_id={allSelectParams['event'][0]}"
-        else:
-            conditionalQuery += f" event_id IN {str(allSelectParams['event'])}"
-        conditionExist = True
+        event_objects = Q()
+        for item in allSelectParams['event']:
+            event_objects |= Q(event_id=item)
+        query_objects &= Q(event_objects)
 
     if 'film' in allSelectParams:
-        if conditionExist:
-            conditionalQuery += " AND"
-        if len(allSelectParams['film']) == 1:
-            conditionalQuery += f" film_id={allSelectParams['film'][0]}"
-        else:
-            conditionalQuery += f" film_id IN {str(allSelectParams['film'])}"
-        conditionExist = True
-
-    if not conditionExist:
-        conditionalQuery = ""
+        film_objects = Q()
+        for item in allSelectParams['film']:
+            film_objects |= Q(film_id=item)
+        query_objects &= Q(film_objects)
 
     if 'sort' in allSelectParams:
-        sort += "ORDER BY"
         if "date" in allSelectParams["sort"]:
-            sort += " timestamp"
-            conditionSort = True
+            order_objects.append("timestamp")
 
         if "film" in allSelectParams["sort"]:
-            if conditionSort:
-                sort += ","
-            sort += " film_id"
-            conditionSort = True
+            order_objects.append("film_id")
 
         if "camera" in allSelectParams["sort"]:
-            if conditionSort:
-                sort += ","
-            sort += " camera_id"
-            conditionSort = True
+            order_objects.append("camera_id")
 
         if "atoz" in allSelectParams["sort"]:
-            if conditionSort:
-                sort += ","
-            sort += " fileName"
+            order_objects.append("fileName")
 
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM {tableName} {conditionalQuery} {sort}")
-        result = namedtuplefetchall(cursor, f"{tableName}")
-    con.close()
+    result = Photos.objects.filter(query_objects).order_by(*order_objects)
     return result
 
 
