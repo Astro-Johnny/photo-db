@@ -15,15 +15,6 @@ def namedtuplefetchall(cursor, name):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-def getTableData(tableName):
-    with sqlite3.connect('./db.sqlite3') as con:
-        cursor = con.cursor()
-        cursor.execute(f"SELECT * FROM {tableName}")
-        result = namedtuplefetchall(cursor, f"{tableName}")
-    con.close()
-    return result
-
-
 def getValues(tableName, allSelectParams):
     conditionalQuery = "WHERE"
     conditionExist = False
@@ -90,7 +81,6 @@ def getValues(tableName, allSelectParams):
 
 
 def deletePhotoById(values):
-    print(values)
     deleteId = values["delete"]
     timestamp = values["timestamp"]
     queryset = Photos.objects.get(id=deleteId)
@@ -101,7 +91,6 @@ def deletePhotoById(values):
 
 
 def modifyPhotoById(values):
-    print(values)
     saveId = values["save"]
     filename = values["filename"]
     camera = int(values["camera"])
@@ -109,9 +98,6 @@ def modifyPhotoById(values):
     film = values["film"]
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
-
-    print('film is: ')
-    print(film)
 
     if event == '' or "none":
         event = None

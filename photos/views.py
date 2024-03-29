@@ -1,16 +1,19 @@
 from django.core.files.storage import FileSystemStorage
 
-from photos.tools.utility import getTableData, getValues, deletePhotoById, modifyPhotoById, addPhotoById, \
+from photos.tools.utility import getValues, deletePhotoById, modifyPhotoById, addPhotoById, \
     downloadPhotoById
 from django.shortcuts import render, redirect
+from photos.models import Photos, Camera, Film, Event
 
 sorts = [['sort_atoz', 'A to Z'], ['sort_film', 'Film'], ['sort_date', 'Date'], ['sort_camera', 'Camera']]
 
 def main(request):
-    cameras = getTableData("photos_camera")
-    film = getTableData("photos_film")
-    event = getTableData("photos_event")
-    photos = getTableData("photos_photos")
+    cameras = Camera.objects.all()
+    film = Film.objects.all()
+    event = Event.objects.all()
+    photos = Photos.objects.all()
+    for photo in photos:
+        print(photo.timestamp)
     return render(request, "photos/index.html", {
         "cameras": cameras,
         "film": film,
@@ -63,9 +66,9 @@ def option(request):
     if "photo" in allSelectParams:
         photoId = int(allSelectParams["photo"][0])
 
-    cameras = getTableData("photos_camera")
-    film = getTableData("photos_film")
-    event = getTableData("photos_event")
+    cameras = Camera.objects.all()
+    film = Film.objects.all()
+    event = Event.objects.all()
     photos = getValues("photos_photos", allSelectParams)
 
     if photoId:

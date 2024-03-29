@@ -96,7 +96,7 @@
             <div class="responsive">
                 <button class="select-btn" id="photo_{{ x.id }}" name="photo_{{ x.id }}" type="submit" value="show">
                 <div class="gallery">
-                    <img src="{% static 'photos/pictures/' %}{{ x.timestamp }}/{{ x.fileName }}">
+                    <img src="{% static 'photos/pictures/' %}{{ x.timestamp|date:'Y-m-d' }}/{{ x.fileName }}">
                     <div class="desc">{{x.fileName}}</div>
                 </div>
                 </button>
