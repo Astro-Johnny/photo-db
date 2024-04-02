@@ -1,7 +1,6 @@
 from django.db import models
 
 class Camera(models.Model):
-    objects = None
     id = models.IntegerField(primary_key=True)
     model = models.CharField(max_length=200)
     isFilm = models.IntegerField()
@@ -9,7 +8,6 @@ class Camera(models.Model):
     isWorking = models.IntegerField()
 
 class Event(models.Model):
-    objects = None
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     place = models.CharField(max_length=200, blank=True, null=True, default='')
@@ -17,14 +15,12 @@ class Event(models.Model):
     endDate = models.DateTimeField(blank=True, null=True, default='')
 
 class Film(models.Model):
-    objects = None
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     iso = models.IntegerField()
     numOfImg = models.IntegerField()
 
 class Photos(models.Model):
-    objects = None
     id = models.IntegerField(primary_key=True)
     fileName = models.CharField(max_length=200)
     camera = models.ForeignKey(Camera, on_delete=models.CASCADE)
