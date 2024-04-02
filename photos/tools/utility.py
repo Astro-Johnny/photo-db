@@ -66,12 +66,12 @@ def modifyPhotoById(values):
     timestamp = values["timestamp"]
     filmEnd = values["filmEnd"]
 
-    if event == '' or "none":
+    if event == '':
         event = None
     else:
         event = Event.objects.get(id=int(event)).id
 
-    if film == '' or "none":
+    if film == '':
         film = None
     else:
         film = Film.objects.get(id=int(film)).id
