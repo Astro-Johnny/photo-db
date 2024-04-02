@@ -12,9 +12,15 @@
     <title>Photos-DB</title>
 </head>
 <body>
+
+<!-- Side nav start -->
+
 <form action="{% url 'options' %}" method="get" id="myForm">
     <div class="sidenav">
         <a href="{% url 'main'%}">Home</a>
+
+        <!-- Side nav sorts -->
+
             <button type="button" class="dropdown-btn">
                 Sort by
             </button>
@@ -31,6 +37,7 @@
                 {% endfor %}
             </div>
 
+        <!-- Side nav filter Camera -->
 
             <button type="button" class="dropdown-btn">
                 Camera
@@ -50,6 +57,7 @@
                 {% endfor %}
             </div>
 
+        <!-- Side nav filter Film -->
 
             <button type="button" class="dropdown-btn">
                 Film
@@ -69,6 +77,7 @@
                 {% endfor %}
             </div>
 
+        <!-- Side nav filter Event -->
 
             <button type="button" class="dropdown-btn">
                 Event
@@ -91,6 +100,8 @@
         <a class="upload-btn" id="myBtn">Upload</a>
     </div>
 
+    <!-- Image gallery -->
+
     <div class="main">
         {% for x in photos %}
             <div class="responsive">
@@ -105,8 +116,12 @@
     </div>
 </form>
 
+<!-- Modals -->
+
 <form method="post" id="modal-form" enctype="multipart/form-data">
     {% csrf_token %}
+
+    <!-- Upload modal -->
 
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -157,13 +172,13 @@
                 <tr>
                     <th>Time Stamp: </th>
                     <td>
-                        <input class="modal-dropdown" id="add-timestamp" name="timestamp" type="date" value="{{sPhoto.timestamp}}" />
+                        <input class="modal-dropdown" id="add-timestamp" name="timestamp" type="date" value="{{sPhoto.timestamp|date:'Y-m-d' }}" />
                     </td>
                 </tr>
                 <tr>
                     <th>FilmEnd: </th>
                     <td>
-                        <input class="modal-dropdown" id="add-filmEnd" name="filmEnd" type="date" value="{{sPhoto.filmEnd}}" />
+                        <input class="modal-dropdown" id="add-filmEnd" name="filmEnd" type="date" value="{{sPhoto.filmEnd|date:'Y-m-d' }}" />
                     </td>
                 </tr>
             </table>
@@ -171,12 +186,14 @@
         </div>
     </div>
 
+    <!-- Gallery modal -->
+
     {% if sPhoto %}
         <div id="imgModal" class="modal">
             <div class="modal-content">
                 <span class="close-photo">&times;</span>
                 <div class="modal-gallery">
-                    <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.timestamp }}/{{ sPhoto.fileName }}">
+                    <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.timestamp|date:'Y-m-d'  }}/{{ sPhoto.fileName }}">
                 </div>
                 <table class="modal-info">
                     <tr>
@@ -219,13 +236,13 @@
                     <tr>
                         <th>Time Stamp: </th>
                         <td>
-                            <input class="modal-dropdown" id="timestamp" name="timestamp" type="date" value="{{sPhoto.timestamp}}"/>
+                            <input class="modal-dropdown" id="timestamp" name="timestamp" type="date" value="{{sPhoto.timestamp|date:'Y-m-d' }}"/>
                         </td>
                     </tr>
                     <tr>
                         <th>FilmEnd: </th>
                         <td>
-                            <input class="modal-dropdown" id="filmEnd" name="filmEnd" type="date" value="{{sPhoto.filmEnd}}"/>
+                            <input class="modal-dropdown" id="filmEnd" name="filmEnd" type="date" value="{{sPhoto.filmEnd|date:'Y-m-d' }}"/>
                         </td>
                     </tr>
                 </table>
