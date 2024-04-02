@@ -9,41 +9,41 @@ from photos.models import Photos, Camera, Film, Event
 
 
 def getValues(allSelectParams):
-    query_objects = Q()
-    order_objects = []
+    query_object = Q()
+    order_object = []
 
     if 'camera' in allSelectParams:
         camera_objects = Q()
         for item in allSelectParams['camera']:
             camera_objects |= Q(camera_id=item)
-        query_objects &= Q(camera_objects)
+        query_object &= Q(camera_objects)
 
     if 'event' in allSelectParams:
         event_objects = Q()
         for item in allSelectParams['event']:
             event_objects |= Q(event_id=item)
-        query_objects &= Q(event_objects)
+        query_object &= Q(event_objects)
 
     if 'film' in allSelectParams:
         film_objects = Q()
         for item in allSelectParams['film']:
             film_objects |= Q(film_id=item)
-        query_objects &= Q(film_objects)
+        query_object &= Q(film_objects)
 
     if 'sort' in allSelectParams:
         if "date" in allSelectParams["sort"]:
-            order_objects.append("timestamp")
+            order_object.append("timestamp")
 
         if "film" in allSelectParams["sort"]:
-            order_objects.append("film_id")
+            order_object.append("film_id")
 
         if "camera" in allSelectParams["sort"]:
-            order_objects.append("camera_id")
+            order_object.append("camera_id")
 
         if "atoz" in allSelectParams["sort"]:
-            order_objects.append("fileName")
+            order_object.append("fileName")
 
-    result = Photos.objects.filter(query_objects).order_by(*order_objects)
+    result = Photos.objects.filter(query_object).order_by(*order_object)
     return result
 
 
