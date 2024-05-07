@@ -5,7 +5,7 @@ class Camera(models.Model):
     id = models.IntegerField(primary_key=True)
     model = models.CharField(max_length=200)
     isFilm = models.IntegerField()
-    dateOfPurchase = models.DateTimeField(blank=True, null=True, default='')
+    dateOfPurchase = models.DateField(blank=True, null=True, default='')
     isWorking = models.IntegerField()
 
 
@@ -13,15 +13,15 @@ class Event(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     place = models.CharField(max_length=200, blank=True, null=True, default='')
-    startDate = models.DateTimeField()
-    endDate = models.DateTimeField(blank=True, null=True, default='')
+    startDate = models.DateField()
+    endDate = models.DateField(blank=True, null=True, default='')
 
 
 class Film(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     iso = models.IntegerField()
-    numOfImg = models.IntegerField()
+    exposures = models.IntegerField()
 
 
 class Photos(models.Model):
