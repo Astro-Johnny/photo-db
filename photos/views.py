@@ -1,6 +1,6 @@
 from django.core.files.storage import FileSystemStorage
 
-from photos.tools.utility import getValues, deletePhotoById, modifyPhotoById, addPhotoById, \    downloadPhotoById, addCamera, addFilm, addEvent
+from photos.tools.utility import getValues, deletePhotoById, modifyPhotoById, addPhotoById, downloadPhotoById, addCamera, addFilm, addEvent
 from django.shortcuts import render, redirect
 from photos.models import Photos, Camera, Film, Event
 
