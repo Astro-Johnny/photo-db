@@ -59,12 +59,12 @@ def deletePhotoById(values):
 
 def modifyPhotoById(values):
     saveId = values["save"]
-    filename = values["filename"]
-    camera = int(values["camera"])
-    event = values["event"]
-    film = values["film"]
-    timestamp = values["timestamp"]
-    filmEnd = values["filmEnd"]
+    filename = values.getlist("filename")[0]
+    camera = values.getlist("camera")[0]
+    event = values.getlist("event")[0]
+    film = values.getlist("film")[0]
+    timestamp = values.getlist("timestamp")[0]
+    filmEnd = values.getlist("filmEnd")[0]
 
     if event == '':
         event = None

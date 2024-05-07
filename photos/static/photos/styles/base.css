@@ -42,10 +42,10 @@ body {
     color: #f1f1f1;
 }
 
-.upload-btn{
+.openUploadModal{
     position: fixed;
     display: inline-block;
-    bottom: 15px;
+    bottom: 20px;
 }
 
 .active {
@@ -130,7 +130,7 @@ body {
 
 /* Gallery start */
 div.gallery {
-    height: 200px;
+    height: 240px;
     border: 1px solid #161616;
 }
 
@@ -159,8 +159,8 @@ div.desc {
 .responsive {
     padding: 23px 6px;
     float: left;
-    width: 25%;
-    height: 35%;
+    width: 325px;
+    height: 250px;
 }
 
 @media only screen and (max-width: 700px) {
@@ -198,20 +198,22 @@ div.desc {
 
 .modal-content {
     background-color: #0a0a0a;
-    margin: 10% 12%;
-    padding: 20px;
+    margin: 7% 8%;
+    padding: 10px;
     border: 1px solid #161616;
-    width: 78%;
-    height: 64%
+    width: 85%;
+    height: 65%
 }
 
 .modal-gallery{
     display: inline-block;
     height: 450px;
     width: 680px;
+    height: 100%;
+    width: 50%;
     border: 1px solid #161616;
     text-align: center;
-    vertical-align: top;
+    vertical-align: center;
     background-color: #0d0d0d;
 }
 
@@ -229,63 +231,80 @@ div.desc {
     bottom: 0;
     max-width: 680px;
     max-height: 450px;
+    vertical-align: center;
+    display: relative;
+    max-width: 100%;
+    max-height: 100%;
     padding-bottom: 2px;
 }
 
 .modal-info{
     all: unset;
-    font-size: 20px;
-    display: inline-block;
-    padding-bottom: 21%;
+    font-size: 100%;
+    display: relative;
+    vertical-align: top;
 }
 
 .modal-dropdown{
-    all: unset;
-    padding-left: 5%;
+    margin-top: 5px;
+    padding: 6px 1px 6px 16px;
+    text-decoration: none;
+    background: black;
+    color: #818181;
+    border: none;
+    font-size: 15px;
+    display: block;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal-dropdown:hover {
+    color: #f1f1f1;
 }
 
 th, td {
     white-space: nowrap;
-    padding: 2% 5%;
+    padding: 15px 5px;
     text-align: left;
 }
 
-.modal-btn{
+.modalOptionButton{
     all: unset;
     color: #818181;
-    position: absolute;
-    bottom: 18%;
-    right: 16%;
-    font-weight: bold;
+    position: fixed;
+    right: 10%;
+    bottom: 24%
 }
 
 #delete{
     color: #cc0000;
-    right: 12%;
+}
+
+#save{
+    margin-right: 60px;
 }
 
 #download{
-    right: 19.5%;
+    margin-right: 110px;
 }
 
-#add{
-    right: 12%;
+.modalAddButton {
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.input {
-    width: 100px;
-    border: 2px solid #818181;
-    border-radius: 4px;
-}
-
-.close-photo, .close-upload {
+.closeModal{
     color: #818181;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close-photo:hover, .close-photo:focus, .close-upload:hover, .close-upload:focus, .modal-btn:hover, .modal-btn:focus{
+.closeModal:hover, .closeModal:focus,
+.modalOptionButton:hover, .modalOptionButton:focus,
+.modalAddButton:hover, .modalAddButton:focus{
     color: #f1f1f1;
     text-decoration: none;
     cursor: pointer;

@@ -44,7 +44,7 @@ def option(request):
             modifyPhotoById(values)
         if "download" in values:
             downloadPhotoById(values)
-        if "add" in values:
+        if "addPhoto" in values:
             addPhotoById(values)
             img = request.FILES["img"]
             filename = values["filename"]

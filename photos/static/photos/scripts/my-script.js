@@ -41,36 +41,23 @@ function submitForm(identity){
         window.location.href = "/"
         return;
     }
-    document.getElementById("myForm").submit();
+    document.getElementById("sideNavigation").submit();
 }
 
-const modal = document.getElementById("myModal");
-const btn = document.getElementById("myBtn");
-const span = document.getElementsByClassName("close-upload")[0];
+//Photo modal
+
+const photoModal = document.getElementById("photoModal");
+const closePhotoModal = document.getElementById("closePhotoModal");
 const body = document.getElementsByTagName('body')[0];
 
-btn.onclick = function() {
-    modal.style.display = "block";
-    body.style.overflow = "hidden";
-}
-
-span.onclick = function() {
-    modal.style.display = "none";
-    body.style.overflow = "auto";
-}
-
-const imgModal = document.getElementById("imgModal");
-const imgSpan = document.getElementsByClassName("close-photo")[0];
-
 if (window.location.href.includes("photo_")){
-    imgModal.style.display = "block";
+    photoModal.style.display = "block";
     body.style.overflow = "hidden";
 }
 
-
-if (imgSpan !== undefined){
-    imgSpan.onclick = function() {
-        imgModal.style.display = "none";
+if (closePhotoModal !== null){
+    closePhotoModal.onclick = function() {
+        photoModal.style.display = "none";
         body.style.overflow = "auto";
         if (window.location.href.includes("&")){
             tagList = window.location.href.split("&")
@@ -83,15 +70,37 @@ if (imgSpan !== undefined){
         window.location.replace(path)
     }
 }
+
+//Upload Modal
+
+const uploadModal = document.getElementById("uploadModal");
+const openUploadModal = document.getElementById("openUploadModal");
+const closeUploadModal = document.getElementById("closeUploadModal");
+
+openUploadModal.onclick = function() {
+    uploadModal.style.display = "block";
+    body.style.overflow = "hidden";
+}
+
+closeUploadModal.onclick = function() {
+    uploadModal.style.display = "none";
+    body.style.overflow = "auto";
+}
+
+//Exit Modals
 
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+    if (event.target == uploadModal) {
+        uploadModal.style.display = "none";
+        body.style.overflow = "auto";
+    }
         body.style.overflow = "auto";
     }
 
-    if (event.target == imgModal) {
-        imgModal.style.display = "none";
+    if (event.target == photoModal) {
+        photoModal.style.display = "none";
         body.style.overflow = "auto";
         if (window.location.href.includes("&")){
             tagList = window.location.href.split("&")
@@ -105,20 +114,26 @@ window.onclick = function(event) {
     }
 }
 
+//Submit Form For Modals
+
 function submitModalForm(data) {
-    const modal_form = document.getElementById("modal-form");
+    const modalForm = document.getElementById("modalForm");
 
     if (data === "save"){
         const filename = document.getElementById("filename")
-        const new_filename = document.getElementById("new-filename")
-        filename.value = new_filename.innerText
-    }else if (data === "add"){
+        const newFilename = document.getElementById("new-filename")
+        filename.value = newFilename.innerText
+    }else if (data === "addPhoto"){
         if (!window.location.href.includes("options")) {
-            modal_form.action = window.location.href + "/options"
+            modalForm.action = window.location.href + "/options"
         }
         const filename = document.getElementById("add-filename")
         const new_filename = document.getElementById("add-new-filename")
         filename.value = new_filename.innerText
     }
     modal_form.submit()
+        const newFilename = document.getElementById("add-new-filename")
+        filename.value = newFilename.innerText
+    }
+    modalForm.submit()
 }
