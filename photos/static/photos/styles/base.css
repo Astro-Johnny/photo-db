@@ -207,7 +207,7 @@ div.desc {
     display: block;
     position: absolute;
     bottom: 50%;
-    left: 31%;
+    left: 27%;
 }
 
 .modal-img {
@@ -236,6 +236,7 @@ div.desc {
     font-size: 15px;
     display: block;
     width:100%;
+    max-width: 450px;
     text-align: left;
     cursor: pointer;
     outline: none;

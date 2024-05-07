@@ -86,7 +86,7 @@
                     <div>
                         {% with x.id|stringformat:"i" as t %}
                             {% with "event_"|add:t as val %}
-                            <label class="container">{{x.name}}
+                            <label class="container">{{x.name}} ({{x.place}})
                                 <input class="check" onClick="submitForm('event_'+{{ x.id }})" id="event_{{ x.id }}" name="event_{{ x.id }}" type="checkbox" value="enabled" {% if val in isChecked %} checked {% endif %}/>
                                 <span class="checkmark"></span>
                             </label>
@@ -219,7 +219,7 @@
                     <td>
                         <select class="modal-dropdown" name="event">
                             {% for x in event %}
-                            <option value="{{x.id}}">{{x.name}}</option>
+                            <option value="{{x.id}}">{{x.name}} ({{x.place}})</option>
                             {% endfor %}
                             <option value="none" selected>none</option>
                         </select>
