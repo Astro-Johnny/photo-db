@@ -33,7 +33,6 @@ function displayImage(input) {
         reader.readAsDataURL(file);
     }
 }
-//Upload modal image display end
 
 function submitForm(identity){
     const el = document.getElementById(identity)

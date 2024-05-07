@@ -1,7 +1,6 @@
 from django.core.files.storage import FileSystemStorage
 
-from photos.tools.utility import getValues, deletePhotoById, modifyPhotoById, addPhotoById, \
-    downloadPhotoById
+from photos.tools.utility import getValues, deletePhotoById, modifyPhotoById, addPhotoById, \    downloadPhotoById, addCamera, addFilm, addEvent
 from django.shortcuts import render, redirect
 from photos.models import Photos, Camera, Film, Event
 
@@ -51,6 +50,13 @@ def option(request):
             timestamp = values["timestamp"]
             files = FileSystemStorage(location='photos/static/photos/pictures/' + timestamp)
             files.save(filename, img)
+        if "addCamera" in values:
+            addCamera(values)
+        if "addEvent" in values:
+            addEvent(values)
+        if "addFilm" in values:
+            addFilm(values)
+
 
     values = request.GET.copy()
     for val in values:

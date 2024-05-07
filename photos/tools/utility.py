@@ -138,3 +138,54 @@ def addPhotoById(values):
         timestamp=timestamp,
         filmEnd=filmEnd
     )
+
+
+def addCamera(values):
+    model = values["model"]
+    isFilm = int(values["isFilm"])
+    isWorking = int(values["isWorking"])
+    dateOfPurchase = values["dateOfPurchase"]
+
+    if dateOfPurchase == '':
+        dateOfPurchase = None
+    else:
+        dateOfPurchase = dateOfPurchase
+
+    Camera.objects.create(
+        model=model,
+        isFilm=isFilm,
+        isWorking=isWorking,
+        dateOfPurchase=dateOfPurchase
+    )
+
+
+def addEvent(values):
+    name = values.getlist("name")[0]
+    place = values["place"]
+    startDate = values["startDate"]
+    endDate = values["endDate"]
+
+    if endDate == '':
+        endDate = startDate
+    else:
+        endDate = endDate
+
+    Event.objects.create(
+        name=name,
+        place=place,
+        startDate=startDate,
+        endDate=endDate
+    )
+
+
+def addFilm(values):
+    name = values["name"]
+    iso = int(values["iso"])
+    exposures = int(values["exposures"])
+
+
+    Film.objects.create(
+        name=name,
+        iso=iso,
+        exposures=exposures
+    )

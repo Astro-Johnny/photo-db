@@ -330,6 +330,37 @@
             </div>
         </div>
     {% endif %}
+                </tr>
+            </table>
+            <button class="modalOptionButton" id="addEvent" name="addEvent" onclick="submitModalForm('addEvent')" type="submit" value="addEvent">Add to database</button>
+        </div>
+    </div>
+
+    <!-- Film modal -->
+
+    <div id="filmModal" class="modal">
+        <div class="modal-content">
+            <span class="closeModal" id="closeFilmModal">&times;</span>
+            <table class="modal-info">
+                <tr>
+                    <th>Name: </th>
+                    <td class="modal-dropdown" id="addFilmName" contenteditable="true"></td>
+                    <input id="addFilmNameInput" name="name" type="hidden"/>
+                </tr>
+                <tr>
+                    <th>ISO: </th>
+                    <td class="modal-dropdown" id="addISO" contenteditable="true"></td>
+                    <input id="addISOInput" name="iso" type="hidden"/>
+                </tr>
+                <tr>
+                    <th>Exposures: </th>
+                    <td class="modal-dropdown" id="addExposures" contenteditable="true"></td>
+                    <input id="addExposuresInput" name="exposures" type="hidden"/>
+                </tr>
+            </table>
+            <button class="modalOptionButton" id="addFilm" name="addFilm" onclick="submitModalForm('addFilm')" type="submit" value="addFilm">Add to database</button>
+        </div>
+    </div>
 </form>
 </body>
 </html>
