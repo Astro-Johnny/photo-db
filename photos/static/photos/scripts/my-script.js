@@ -87,15 +87,77 @@ closeUploadModal.onclick = function() {
     body.style.overflow = "auto";
 }
 
+//Camera modal
+
+const cameraModal = document.getElementById("cameraModal");
+const openCameraModal = document.getElementById("openCameraModal");
+const closeCameraModal = document.getElementById("closeCameraModal");
+
+openCameraModal.onclick = function() {
+    uploadModal.style.display = "none";
+    cameraModal.style.display = "block";
+    body.style.overflow = "hidden";
+}
+
+closeCameraModal.onclick = function() {
+    cameraModal.style.display = "none";
+    body.style.overflow = "auto";
+}
+
+//Event modal
+
+const eventModal = document.getElementById("eventModal");
+const openEventModal = document.getElementById("openEventModal");
+const closeEventModal = document.getElementById("closeEventModal");
+
+openEventModal.onclick = function() {
+    uploadModal.style.display = "none";
+    eventModal.style.display = "block";
+    body.style.overflow = "hidden";
+}
+
+closeEventModal.onclick = function() {
+    eventModal.style.display = "none";
+    body.style.overflow = "auto";
+}
+
+//Film modal
+
+const filmModal = document.getElementById("filmModal");
+const openFilmModal = document.getElementById("openFilmModal");
+const closeFilmModal = document.getElementById("closeFilmModal");
+
+openFilmModal.onclick = function() {
+    uploadModal.style.display = "none";
+    filmModal.style.display = "block";
+    body.style.overflow = "hidden";
+}
+
+closeFilmModal.onclick = function() {
+    filmModal.style.display = "none";
+    body.style.overflow = "auto";
+}
+
 //Exit Modals
 
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
     if (event.target == uploadModal) {
         uploadModal.style.display = "none";
         body.style.overflow = "auto";
     }
+
+    if (event.target == cameraModal) {
+        cameraModal.style.display = "none";
+        body.style.overflow = "auto";
+    }
+
+    if (event.target == eventModal) {
+        eventModal.style.display = "none";
+        body.style.overflow = "auto";
+    }
+
+    if (event.target == filmModal) {
+        filmModal.style.display = "none";
         body.style.overflow = "auto";
     }
 
@@ -128,12 +190,41 @@ function submitModalForm(data) {
             modalForm.action = window.location.href + "/options"
         }
         const filename = document.getElementById("add-filename")
-        const new_filename = document.getElementById("add-new-filename")
-        filename.value = new_filename.innerText
-    }
-    modal_form.submit()
         const newFilename = document.getElementById("add-new-filename")
         filename.value = newFilename.innerText
+    }else if (data === "addCamera"){
+        if (!window.location.href.includes("options")) {
+            modalForm.action = window.location.href + "/options"
+        }
+        const modelInput = document.getElementById("modelInput")
+        const addModel = document.getElementById("addModel")
+        modelInput.value = addModel.innerText
+    }else if (data === "addEvent"){
+        if (!window.location.href.includes("options")) {
+            modalForm.action = window.location.href + "/options"
+        }
+        const addEventNameInput = document.getElementById("addEventNameInput")
+        const addEventName = document.getElementById("addEventName")
+        addEventNameInput.value = addEventName.innerText
+
+        const addPlaceInput = document.getElementById("addPlaceInput")
+        const addPlace = document.getElementById("addPlace")
+        addPlaceInput.value = addPlace.innerText
+    }else if (data === "addFilm"){
+        if (!window.location.href.includes("options")) {
+            modalForm.action = window.location.href + "/options"
+        }
+        const addFilmNameInput = document.getElementById("addFilmNameInput")
+        const addFilmName = document.getElementById("addFilmName")
+        addFilmNameInput.value = addFilmName.innerText
+
+        const addISOInput = document.getElementById("addISOInput")
+        const addISO = document.getElementById("addISO")
+        addISOInput.value = addISO.innerText
+
+        const addExposuresInput = document.getElementById("addExposuresInput")
+        const addExposures = document.getElementById("addExposures")
+        addExposuresInput.value = addExposures.innerText
     }
     modalForm.submit()
 }

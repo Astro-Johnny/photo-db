@@ -163,18 +163,6 @@ div.desc {
     height: 250px;
 }
 
-@media only screen and (max-width: 700px) {
-    .responsive {
-        width: 50%;
-        margin: 6px 0;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .responsive {
-        width: 100%;
-    }
-}
 /* Gallery end */
 
 .clearfix:after {
@@ -207,8 +195,6 @@ div.desc {
 
 .modal-gallery{
     display: inline-block;
-    height: 450px;
-    width: 680px;
     height: 100%;
     width: 50%;
     border: 1px solid #161616;
@@ -226,11 +212,6 @@ div.desc {
 
 .modal-img {
     margin: auto;
-    display: inline-block;
-    top: 0;
-    bottom: 0;
-    max-width: 680px;
-    max-height: 450px;
     vertical-align: center;
     display: relative;
     max-width: 100%;

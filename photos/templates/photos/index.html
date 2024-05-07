@@ -189,61 +189,6 @@
 
     <!-- Upload modal -->
 
-    {% if sPhoto %}
-        <div id="imgModal" class="modal">
-            <div class="modal-content">
-                <span class="close-photo">&times;</span>
-                <div class="modal-gallery">
-                    <img class="modal-img" src="{% static 'photos/pictures/' %}{{ sPhoto.timestamp|date:'Y-m-d'  }}/{{ sPhoto.fileName }}">
-                </div>
-                <table class="modal-info">
-                    <tr>
-                        <th>Filename: </th>
-                        <td id="new-filename" contenteditable="true">{{sPhoto.fileName}}</td>
-                        <input id="filename" name="filename" type="hidden"/>
-                    </tr>
-                    <tr>
-                        <th>Camera: </th>
-                        <td>
-                            <select class="modal-dropdown" name="camera">
-                                {% for x in cameras %}
-                                <option value="{{x.id}}" {% if x.id == sPhoto.camera_id %} selected {% endif %}>{{x.model}}</option>
-                                {% endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Event: </th>
-                        <td>
-                            <select class="modal-dropdown" name="event">
-                                {% for x in event %}
-                                <option value="{{x.id}}" {% if x.id == sPhoto.event_id %} selected {% endif %}>{{x.name}}</option>
-                                {% endfor %}
-                                <option value="{{x.id}}" {% if not sPhoto.event_id %} selected {% endif %}>none</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Film: </th>
-                        <td>
-                            <select class="modal-dropdown" name="film">
-                                {% for x in film %}
-                                <option value="{{x.id}}" {% if x.id == sPhoto.film_id %} selected {% endif %}>{{x.name}}</option>
-                                {% endfor %}
-                                <option value="{{x.id}}" {% if not sPhoto.film_id %} selected {% endif %}>none</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Time Stamp: </th>
-                        <td>
-                            <input class="modal-dropdown" id="timestamp" name="timestamp" type="date" value="{{sPhoto.timestamp|date:'Y-m-d' }}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>FilmEnd: </th>
-                        <td>
-                            <input class="modal-dropdown" id="filmEnd" name="filmEnd" type="date" value="{{sPhoto.filmEnd|date:'Y-m-d' }}"/>
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <span class="closeModal" id="closeUploadModal">&times;</span>
@@ -267,6 +212,7 @@
                             {% endfor %}
                         </select>
                     </td>
+                    <td><a class="modalAddButton" id="openCameraModal">+</a></td>
                 </tr>
                 <tr>
                     <th>Event: </th>
@@ -278,6 +224,7 @@
                             <option value="none" selected>none</option>
                         </select>
                     </td>
+                    <td><a class="modalAddButton" id="openEventModal">+</a></td>
                 </tr>
                 <tr>
                     <th>Film: </th>
@@ -289,6 +236,7 @@
                             <option value="none" selected>none</option>
                         </select>
                     </td>
+                    <td><a class="modalAddButton" id="openFilmModal">+</a></td>
                 </tr>
                 <tr>
                     <th>Time Stamp: </th>
@@ -307,6 +255,72 @@
         </div>
     </div>
 
+    <!-- Camera modal -->
+
+    <div id="cameraModal" class="modal">
+        <div class="modal-content">
+            <span class="closeModal" id="closeCameraModal">&times;</span>
+            <table class="modal-info">
+                <tr>
+                    <th>Model: </th>
+                    <td class="modal-dropdown" id="addModel" contenteditable="true"></td>
+                    <input id="modelInput" name="model" type="hidden"/>
+                </tr>
+                <tr>
+                    <th>Is it Film: </th>
+                    <td>
+                        <select class="modal-dropdown" name="isFilm">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Is it Working: </th>
+                    <td>
+                        <select class="modal-dropdown" name="isWorking">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date of Purchase: </th>
+                        <td>
+                            <input class="modal-dropdown" id="dateOfPurchase" name="dateOfPurchase" type="date" value="dateOfPurchase"/>
+                        </td>
+                </tr>
+            </table>
+            <button class="modalOptionButton" id="addCamera" name="addCamera" onclick="submitModalForm('addCamera')" type="submit" value="addCamera">Add to database</button>
+        </div>
+    </div>
+
+    <!-- Event modal -->
+
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <span class="closeModal" id="closeEventModal">&times;</span>
+            <table class="modal-info">
+                <tr>
+                    <th>Name: </th>
+                    <td class="modal-dropdown" id="addEventName" contenteditable="true"></td>
+                    <input id="addEventNameInput" name="name" type="hidden"/>
+                </tr>
+                <tr>
+                    <th>Place: </th>
+                    <td class="modal-dropdown" id="addPlace" contenteditable="true"></td>
+                    <input id="addPlaceInput" name="place" type="hidden"/>
+                </tr>
+                <tr>
+                    <th>Start Date: </th>
+                        <td>
+                            <input class="modal-dropdown" id="startDate" name="startDate" type="date" value="startDate"/>
+                        </td>
+                </tr>
+                <tr>
+                    <th>End Data: </th>
+                        <td>
+                            <input class="modal-dropdown" id="endDate" name="endDate" type="date" value="endDate"/>
                         </td>
                     </tr>
                 </table>
